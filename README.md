@@ -1,27 +1,54 @@
-# Microservices using VirtualBox
+# Scalable & Secure Web Infrastructure on Google Cloud Platform
 
-## Objective
-Create multiple Virtual Machines using VirtualBox, connect them via a private network, and deploy a microservice-based application across the VMs.
+## 📌 Project Overview
 
-## Architecture
-- VM1: EchoCore Service (Node.js, Express)
-- VM2: PulseLogic Service (Node.js, Express)
-- Network: VirtualBox Host-Only Adapter
+This project demonstrates the deployment of a scalable and secure web application infrastructure using Google Cloud Platform (GCP).
 
-## Services
+The architecture includes:
+- Virtual Machine deployment
+- Apache web server configuration
+- Instance Template automation
+- Managed Instance Group (MIG) with autoscaling
+- Regional External Application Load Balancer
+- Health checks
+- IAM role-based access control
+- Firewall security rules
+- Load testing for autoscaling validation
 
-### EchoCore (VM1)
-- Port: 3000
-- Endpoint:
-  - /api/status
-  - /api/greet
-  - /api/pulse-check
+---
 
-### PulseLogic (VM2)
-- Port: 4000
-- Endpoint:
-  - /api/info
+## 🏗 Architecture Components
 
-## How to Run
-1. Install Node.js and npm on both VMs
-2. Run the services:
+### 1️⃣ Virtual Machine
+- Machine Type: e2-medium
+- OS: Ubuntu 24.04 LTS
+- Web Server: Apache2
+
+### 2️⃣ Instance Template
+- Automated startup script
+- Ensures every instance auto-installs and starts Apache
+
+### 3️⃣ Managed Instance Group (app-mig-cluster)
+- Minimum instances: 1
+- Maximum instances: 5
+- Autoscaling metric: CPU utilization
+- Target CPU usage: 60%
+
+### 4️⃣ Regional Application Load Balancer
+- Public facing (external)
+- HTTP on port 80
+- Backend: Managed Instance Group
+- Health check configured for availability
+
+### 5️⃣ Security Controls
+- IAM roles:
+  - Compute Admin
+  - Compute Viewer
+- Firewall rules:
+  - Allow HTTP (80)
+  - Allow HTTPS (443)
+  - Restricted SSH access (22)
+
+---
+
+## 📂 Repository Structure
